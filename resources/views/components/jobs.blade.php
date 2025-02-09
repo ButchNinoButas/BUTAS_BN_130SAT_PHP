@@ -2,6 +2,7 @@
     <x-slot:heading>
         Job Listings
     </x-slot:heading>
+
     <ul>
         @foreach ($jobs as $job)
             <li>

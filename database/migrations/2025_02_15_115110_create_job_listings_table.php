@@ -4,7 +4,13 @@ use App\Models\Employer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-@@ -13,17 +14,19 @@
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
         Schema::create('job_listings', function (Blueprint $table) {
             $table->id();

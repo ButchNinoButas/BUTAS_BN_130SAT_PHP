@@ -1,42 +1,17 @@
-<?php
+<x-layout>
+    <x-slot:heading>
+        Job
+    </x-slot:heading>
 
-use Illuminate\Support\Facades\Route;
-use App\Models\Job;
+    <h2 class="font-bold text-lg">{{ $job->title }}</h2>
 
-Route::get('/', function () {
-    return view('home');
-});
+    <p>
+        This job pays {{ $job->salary }} per year.
+    </p>
 
-Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->latest()->simplePaginate(3);
-
-    return view('jobs.index', [
-        'jobs' => $jobs
-    ]);
-});
-
-Route::get('/jobs/create', function () {
-    return view('jobs.create');
-});
-
-Route::get('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
-
-    return view('jobs.show', ['job' => $job]);
-});
-
-Route::post('/jobs', function () {
-    // validation...
-
-    Job::create([
-        'title' => request('title'),
-        'salary' => request('salary'),
-        'employer_id' => 1
-    ]);
-
-    return redirect('/jobs');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
+    @can('edit', $job)
+        <p class="mt-6">
+           <x-button href="/jobs/{{ $job->id }}/edit">Edit Job</x-button>
+        </p>
+    @endcan
+</x-layout>
